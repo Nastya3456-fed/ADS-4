@@ -1,10 +1,11 @@
 // Copyright 2021 NNTU-CS
 #include <iostream>
+#include <algorithm>
 
 int countPairs1(int *arr, int len, int value) {
+  std::sort(arr, arr + len);
   int c = 0;
-  int i = 0;
-  for (i; i < len; i++) {
+  for (int i = 0; i < len; i++) {
     for (int j = i + 1; j < len; j++) {
       if (arr[i] + arr[j] == value) {
         c=c+1;
@@ -14,6 +15,7 @@ int countPairs1(int *arr, int len, int value) {
   return c;
 }
 int countPairs2(int *arr, int len, int value) {
+  std::sort(arr, arr + len);
   int c = 0;
   int l = 0;
   int r = len - 1;
@@ -23,20 +25,18 @@ int countPairs2(int *arr, int len, int value) {
       c++;
       l++;
       r--;
-    }
-    else if (sloj < value) {
+    } else if (sloj < value) {
       l++;
-    }
-    else {
+    } else {
       r--;
     }
- }
+  }
 return c;
 }
 int countPairs3(int *arr, int len, int value) {
+  std::sort(arr, arr + len);
   int c = 0;
-  int i = 0;
-  for (i; i < len; i++) {
+  for (int i = 0; i < len; i++) {
     int iscom = value - arr[i];
     int l = i + 1;
     int r = len - 1;
@@ -45,11 +45,9 @@ int countPairs3(int *arr, int len, int value) {
       if (arr[sr] == iscom) {
         c++;
         break;
-      }
-      else if (arr[sr] < iscom) {
+      } else if (arr[sr] < iscom) {
         l = sr + 1;
-      }
-      else {
+      } else {
         r = sr - 1;
       }
     }
