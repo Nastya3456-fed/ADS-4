@@ -42,20 +42,30 @@ int countPairs3(int *arr, int len, int value) {
   int c = 0;
   for (int i = 0; i < len; i++) {
     int iscom = value - arr[i];
-    int l = i + 1;
-    int r = len - 1;
-    while (l <= r) {
-      int sr = l + (r - l) / 2;
+    int left = 0;
+    int right = len - 1;
+    bool found = false;
+    while (left <= right) {
+      int sr = left + (right - left) / 2;
       if (arr[sr] == iscom) {
-        c++;
-        break;
-      } else if (arr[sr] < iscom) {
-        l = sr + 1;
-      } else {
-        r = sr - 1;
+        if (sr != i) {
+          found = true;
+          break;
+        }
+        else {
+          break;
+        }
+      }
+      else if (arr[sr] < iscom) {
+        left = sr + 1;
+      }
+      else {
+        right = sr - 1;
       }
     }
-    while (i + 1 < len && arr[i] == arr[i + 1]) i++;
+    if (found) {
+      c++;
     }
-  return c;
+  }
+return c / 2;
 }
