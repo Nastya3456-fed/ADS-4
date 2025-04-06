@@ -19,6 +19,28 @@ int countPairs1(int *arr, int len, int value) {
 int countPairs2(int *arr, int len, int value) {
   std::sort(arr, arr + len);
   int c = 0;
+  for (int i = 0; i < len; i++) {
+    int iscom = value - arr[i];
+    int l = i + 1;
+    int r = len - 1;
+    while (l <= r) {
+      int sr = l + (r - l) / 2;
+      if (arr[sr] == iscom) {
+        c++;
+        break;
+      } else if (arr[sr] < iscom) {
+        l = sr + 1;
+      } else {
+        r = sr - 1;
+      }
+    }
+    while (i + 1 < len && arr[i] == arr[i + 1]) i++;
+    }
+  return c;
+}
+int countPairs3(int *arr, int len, int value) {
+  std::sort(arr, arr + len);
+  int c = 0;
   int l = 0;
   int r = len - 1;
   while (l < r) {
@@ -36,36 +58,4 @@ int countPairs2(int *arr, int len, int value) {
     }
   }
 return c;
-}
-const int* const binarySearch(const int* const arr, const int arrlen, const int findnum) {
-    int l = 0;
-    int r = arrlen - 1;
-    while (l <= r) {
-        int sri = l + (r - l) / 2;
-        const int* const sr = &arr[sri];
-        if (findnum == *sr) {
-            return sr;
-        }
-        if (findnum < *sr) {
-            r = sri - 1;
-        }
-        else {
-            l = sri + 1;
-        }
-    }
-    return nullptr;
-}
-
-int countPairs3(int* arr, int len, int value) {
-    std::sort(arr, arr + len);
-    int c = 0;
-    int k = len / 2;
-    for (int i = 0; i < k; ++i) {
-        int elem = arr[i];
-        bool findsum = nullptr != binarySearch(arr, len, value - elem);
-        if (findsum) {
-            ++c;
-        }
-    }
-    return c;
 }
