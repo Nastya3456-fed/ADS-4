@@ -38,27 +38,17 @@ int countPairs2(int *arr, int len, int value) {
 return c;
 }
 int countPairs3(int *arr, int len, int value) {
-    int c = 0;
-    int i = 0;
-
-    for (i; i < len; i++) {
-        int iscom = value - arr[i];
-        int l = i + 1;
-        int r = len - 1;
-        while (l <= r) {
-            int sr = l + (r - l) / 2;
-            if (arr[sr] == iscom) {
-                c++;
-                break;
-            }
-            else if (arr[sr] < iscom) {
-                l = sr + 1;
-            }
-            else {
-                r = sr - 1;
-            }
-        }
+  std::sort(arr, arr + len);
+  int c = 0;
+  for (int i = 0; i < len; i++) {
+    for (int j = i + 1; j < len; j++) {
+      if (arr[i] + arr[j] == value) {
+        c = c+1;
+        while (j + 1 < len && arr[j] == arr[j + 1]) j++;
+        break;
+      }
     }
-
-    return c;
+    while (i + 1 < len && arr[i] == arr[i + 1]) i++;
+  }
+  return c;
 }
